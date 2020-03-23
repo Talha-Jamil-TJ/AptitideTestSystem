@@ -7,7 +7,7 @@ import {LoginComponent} from './login.component';
 import {AngularMaterialModule} from '../../_shared/AngularMaterial.module';
 import {LoginRouting} from './login.routing';
 import {NgxsModule} from '@ngxs/store';
-import {LoginState} from './state/login.state';
+import {AuthState} from '../../_state/auth/authState';
 
 @NgModule({
    imports: [
@@ -16,7 +16,7 @@ import {LoginState} from './state/login.state';
       CommonModule,
       LoginRouting,
       AngularMaterialModule,
-      NgxsModule.forFeature([LoginState]),
+      NgxsModule.forFeature([AuthState]),
    ],
    declarations: [LoginComponent],
    exports: [],

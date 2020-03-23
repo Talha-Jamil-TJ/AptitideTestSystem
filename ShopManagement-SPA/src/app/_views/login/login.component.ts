@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Store} from '@ngxs/store';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Store } from '@ngxs/store';
 
-import {LoginModel} from '../../_models/login.model';
-import {Login} from './state/login.actions';
+import { LoginModel } from '../../_models/login.model';
+import { Login } from '../../_state/auth/auth.actions';
+import { Navigate } from '../../_shared/state/router.state';
 
 @Component({
    selector: 'app-login',
@@ -28,8 +29,8 @@ export class LoginComponent implements OnInit {
       }
 
       this.store.dispatch(new Login(this.loginModel)).subscribe(
-         () => {
-            console.log('Logged Successfully');
+         (res) => {
+            console.log('Logged Successfully', res);
             this.isError = false;
          },
          (error) => (this.isError = true),

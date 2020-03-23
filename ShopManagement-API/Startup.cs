@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,10 @@ using Microsoft.OpenApi.Models;
 using ShopManagement.IRepository;
 using ShopManagement.models;
 using ShopManagement.Repository;
+using AutoMapper;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using ShopManagement.Helpers;
 
 namespace ShopManagement
 {
@@ -29,6 +34,8 @@ namespace ShopManagement
             services.AddDbContext<DataContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddAutoMapper(typeof(Startup));
+            
             services.AddControllers();
 
             services.AddCors();
@@ -64,6 +71,23 @@ namespace ShopManagement
 
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopManagement API"); });
 
+            app.UseExceptionHandler(builder =>
+            {
+                builder.Run(async context =>
+                {
+                    context.Response.StatusCode = (int) HttpStatusCode
+                        .InternalServerError;
+
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+
+                    if (error != null)
+                    {
+                        context.Response.AddApplicationError(error.Error.Message);
+                        await context.Response.WriteAsync(error.Error.Message);
+                    }
+                });
+            });
+            
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseRouting();

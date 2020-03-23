@@ -184,3 +184,5 @@ D:\Projects\TJ\AptitudeTestSystem\ShopManagement-API\obj\Debug\netcoreapp3.1\sta
 D:\Projects\TJ\AptitudeTestSystem\ShopManagement-API\obj\Debug\netcoreapp3.1\ShopManagement.dll
 D:\Projects\TJ\AptitudeTestSystem\ShopManagement-API\obj\Debug\netcoreapp3.1\ShopManagement.pdb
 D:\Projects\TJ\AptitudeTestSystem\ShopManagement-API\obj\Debug\netcoreapp3.1\ShopManagement.genruntimeconfig.cache
+D:\Projects\TJ\AptitudeTestSystem\ShopManagement-API\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\Projects\TJ\AptitudeTestSystem\ShopManagement-API\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

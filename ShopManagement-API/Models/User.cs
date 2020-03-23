@@ -12,10 +12,9 @@ namespace ShopManagement.models
 
         public byte[] PasswordSalt { get; set; }
 
-        public string CNIC { get; set; }
+        public int RoleId { get; set; }
+        
+        public Role Role { get; set; }
 
-        public string Address { get; set; }
-
-        public string PhoneNumber { get; set; }
     }
 }

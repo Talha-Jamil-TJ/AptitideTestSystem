@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginModel } from '../../_models/login.model';
-import { AuthService } from '../../_services/auth.service';
-import { NgForm } from '@angular/forms';
-import { NzNotificationService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Store} from '@ngxs/store';
+
+import {LoginModel} from '../../_models/login.model';
+import {Login} from './state/login.actions';
 
 @Component({
    selector: 'app-login',
@@ -15,11 +15,7 @@ export class LoginComponent implements OnInit {
 
    isError = false;
 
-   constructor(
-      private authService: AuthService,
-      private _notification: NzNotificationService,
-      private _router: Router,
-   ) {}
+   constructor(private store: Store) {}
 
    ngOnInit(): void {}
 
@@ -31,12 +27,10 @@ export class LoginComponent implements OnInit {
          return;
       }
 
-      this.authService.login(this.loginModel).subscribe(
+      this.store.dispatch(new Login(this.loginModel)).subscribe(
          () => {
             console.log('Logged Successfully');
             this.isError = false;
-            this._notification.create('success', 'Success', 'Logged in successfully');
-            this._router.navigate(['main']).then();
          },
          (error) => (this.isError = true),
       );

@@ -1,0 +1,27 @@
+form {
+   margin: 0 auto;
+}
+
+form > .form-group {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+form > .form-group > mat-form-field {
+   width: 60%;
+   margin: 0 auto;
+}
+
+form > .row {
+   width: 100%;
+}
+
+form > .row > .btn-group {
+   width: 50%;
+   margin: 0 auto;
+}
+
+.btn-danger {
+   background-color: #ff523e;
+}

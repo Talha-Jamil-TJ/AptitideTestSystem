@@ -1,16 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsModule} from '@ngxs/store';
+import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 
-import { AppRouting } from './app.routing';
-import { AppComponent } from './app.component';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { LoginModule } from './_views/login/login.module';
-import { MainModule } from './_views/main/main.module';
-import { LoadingSpinnerComponent } from './_shared/loadingSpinner/loadingSpinner.component';
-import { AngularMaterialModule } from './_shared/AngularMaterial.module';
+import {AppRouting} from './app.routing';
+import {AppComponent} from './app.component';
+import {LoginModule} from './_views/login/login.module';
+import {MainModule} from './_views/main/main.module';
+import {LoadingSpinnerComponent} from './_shared/loadingSpinner/loadingSpinner.component';
+import {AngularMaterialModule} from './_shared/AngularMaterial.module';
 import {LoadingSpinnerInterceptor} from './_shared/loadingSpinner/loadingSpinner.interceptor';
+import {RouterState} from './_shared/state/router.state';
 
 @NgModule({
    declarations: [AppComponent, LoadingSpinnerComponent],
@@ -21,6 +24,9 @@ import {LoadingSpinnerInterceptor} from './_shared/loadingSpinner/loadingSpinner
       BrowserAnimationsModule,
       MainModule,
       AngularMaterialModule,
+      NgxsModule.forRoot([RouterState]),
+      NgxsReduxDevtoolsPluginModule.forRoot(),
+      NgxsLoggerPluginModule.forRoot(),
    ],
    providers: [
       {

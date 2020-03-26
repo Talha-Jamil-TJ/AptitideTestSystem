@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShopManagement.DTOs;
+using ShopManagement.models;
 
 namespace ShopManagement.IRepository
 {
     public interface IRoleRepository
     {
-        Task<IList<RoleDTO>> Get();
+        Task<IList<Role>> Get();
         
-        Task<RoleDTO> Get(int roleId);
+        Task<Role> Get(int roleId);
         
-        Task<RoleDTO> Create(RoleDTO role);
+        Task Create(Role role);
 
-        Task<RoleDTO> Update(int id, RoleDTO role);
-
-        Task Delete(int id);
+        Task Delete(Role role);
 
         Task<bool> SaveAll();
     }

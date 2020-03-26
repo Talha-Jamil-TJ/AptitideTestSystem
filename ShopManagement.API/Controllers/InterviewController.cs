@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShopManagement.DTOs;
 using ShopManagement.IRepository;
@@ -11,10 +13,12 @@ namespace ShopManagement.Controllers
     public class InterviewController : ControllerBase
     {
         private readonly IInterviewRepository _repo;
+        private readonly IMapper _mapper;
 
-        public InterviewController(IInterviewRepository repo)
+        public InterviewController(IInterviewRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -22,21 +26,27 @@ namespace ShopManagement.Controllers
         {
             var interviews = await _repo.Get();
 
-            return Ok(interviews);
+            var interviewsDto = _mapper.Map<IList<InterviewDTO>>(interviews);
+
+            return Ok(interviewsDto);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var interview = await _repo.Get(id);
 
-            return Ok(interview);
+            var interviewDto = _mapper.Map<InterviewDTO>(interview);
+
+            return Ok(interviewDto);
         }
 
         [HttpPost(Name = "CreateInterview")]
         public async Task<IActionResult> Create(InterviewDTO interviewDto)
         {
-            var interview = await _repo.Create(interviewDto);
+            var interview = _mapper.Map<Interview>(interviewDto);
+
+            await _repo.Create(interview);
 
             if (await _repo.SaveAll())
                 return CreatedAtRoute("CreateInterview", new {id = interview.Id}, interview);
@@ -44,10 +54,14 @@ namespace ShopManagement.Controllers
             return BadRequest("creation unsuccessful");
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, InterviewDTO interviewDto)
+        [HttpPut]
+        public async Task<IActionResult> Update(InterviewDTO interviewDto)
         {
-            await _repo.Update(id, interviewDto);
+            var interview = _mapper.Map<Interview>(interviewDto);
+
+            var thisInterview = await _repo.Get(interview.Id);
+
+            if (thisInterview == null) return BadRequest("Interview not found");
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -55,10 +69,14 @@ namespace ShopManagement.Controllers
             return BadRequest("Update unsuccessful");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _repo.Delete(id);
+            var thisInterview = await _repo.Get(id);
+
+            if (thisInterview == null) return BadRequest("Interview not found");
+
+            await _repo.Delete(thisInterview);
 
             if (await _repo.SaveAll())
                 return NoContent();

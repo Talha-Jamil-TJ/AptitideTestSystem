@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShopManagement.DTOs;
 using ShopManagement.IRepository;
@@ -11,32 +13,40 @@ namespace ShopManagement.Controllers
     public class VacancyController : ControllerBase
     {
         private readonly IVacancyRepository _repo;
+        private readonly IMapper _mapper;
 
-        public VacancyController(IVacancyRepository repo)
+        public VacancyController(IVacancyRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var vacancys = await _repo.Get();
+            var vacancies = await _repo.Get();
 
-            return Ok(vacancys);
+            var vacanciesDto = _mapper.Map<IList<VacancyDTO>>(vacancies);
+
+            return Ok(vacanciesDto);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var vacancy = await _repo.Get(id);
 
-            return Ok(vacancy);
+            var vacancyDto = _mapper.Map<VacancyDTO>(vacancy);
+
+            return Ok(vacancyDto);
         }
 
         [HttpPost(Name = "CreateVacancy")]
         public async Task<IActionResult> Create(VacancyDTO vacancyDto)
         {
-            var vacancy = await _repo.Create(vacancyDto);
+            var vacancy = _mapper.Map<Vacancy>(vacancyDto);
+
+            await _repo.Create(vacancy);
 
             if (await _repo.SaveAll())
                 return CreatedAtRoute("CreateVacancy", new {id = vacancy.Id}, vacancy);
@@ -44,10 +54,14 @@ namespace ShopManagement.Controllers
             return BadRequest("creation unsuccessful");
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, VacancyDTO vacancyDto)
+        [HttpPut]
+        public async Task<IActionResult> Update(VacancyDTO vacancyDto)
         {
-            await _repo.Update(id, vacancyDto);
+            var vacancy = _mapper.Map<Vacancy>(vacancyDto);
+
+            var thisVacancy = await _repo.Get(vacancy.Id);
+
+            if (thisVacancy == null) return BadRequest("Vacancy not found");
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -55,10 +69,14 @@ namespace ShopManagement.Controllers
             return BadRequest("Update unsuccessful");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _repo.Delete(id);
+            var thisVacancy = await _repo.Get(id);
+
+            if (thisVacancy == null) return BadRequest("Vacancy not found");
+
+            await _repo.Delete(thisVacancy);
 
             if (await _repo.SaveAll())
                 return NoContent();

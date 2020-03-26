@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShopManagement.DTOs;
+using ShopManagement.models;
 
 namespace ShopManagement.IRepository
 {
     public interface IInterviewRepository
     {
-        Task<IList<InterviewDTO>> Get();
-        
-        Task<InterviewDTO> Get(int vacancyId);
-        
-        Task<InterviewDTO> Create(InterviewDTO Interview);
+        Task<IList<Interview>> Get();
 
-        Task<InterviewDTO> Update(int id, InterviewDTO Interview);
+        Task<Interview> Get(int interviewId);
 
-        Task Delete(int id);
+        Task Create(Interview interview);
+
+        Task Delete(Interview interview);
 
         Task<bool> SaveAll();
     }

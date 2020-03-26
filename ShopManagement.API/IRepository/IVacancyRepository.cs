@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShopManagement.DTOs;
+using ShopManagement.models;
 
 namespace ShopManagement.IRepository
 {
     public interface IVacancyRepository
     {
-        Task<IList<VacancyDTO>> Get();
+        Task<IList<Vacancy>> Get();
         
-        Task<VacancyDTO> Get(int VacancyId);
+        Task<Vacancy> Get(int vacancyId);
         
-        Task<VacancyDTO> Create(VacancyDTO Vacancy);
+        Task Create(Vacancy vacancy);
 
-        Task<VacancyDTO> Update(int id, VacancyDTO Vacancy);
-
-        Task Delete(int id);
+        Task Delete(Vacancy vacancy);
 
         Task<bool> SaveAll();
     }

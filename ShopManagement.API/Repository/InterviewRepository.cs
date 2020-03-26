@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.DTOs;
 using ShopManagement.IRepository;
 using ShopManagement.models;
 
@@ -20,51 +18,24 @@ namespace ShopManagement.Repository
             _mapper = mapper;
         }
 
-        public async Task<IList<InterviewDTO>> Get()
+        public async Task<IList<Interview>> Get()
         {
-            var vacancies = await _context.Interviews.ToListAsync();
-
-            return _mapper.Map<IList<InterviewDTO>>(vacancies);
+            return await _context.Interviews.ToListAsync();
         }
 
-        public async Task<InterviewDTO> Get(int interviewId)
+        public async Task<Interview> Get(int interviewId)
         {
-            var interview = await _context.Interviews.FirstOrDefaultAsync(x => x.Id == interviewId);
-
-            return _mapper.Map<InterviewDTO>(interview);
+            return await _context.Interviews.FirstOrDefaultAsync(x => x.Id == interviewId);
         }
 
-        public async Task<InterviewDTO> Create(InterviewDTO Interview)
+        public async Task Create(Interview Interview)
         {
-            var thisInterview = _mapper.Map<Interview>(Interview);
-
-            await _context.Interviews.AddAsync(thisInterview);
-
-            await _context.SaveChangesAsync();
-
-            return Interview;
+            await _context.Interviews.AddAsync(Interview);
         }
 
-        public async Task<InterviewDTO> Update(int id, InterviewDTO interview)
+        public async Task Delete(Interview Interview)
         {
-            var thisInterview = await _context.Interviews.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (thisInterview == null) throw new Exception("Interview not found");
-
-            await _context.SaveChangesAsync();
-
-            return _mapper.Map(thisInterview, interview);
-        }
-
-        public async Task Delete(int id)
-        {
-            var thisInterview = await _context.Interviews.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (thisInterview == null) throw new Exception("Interview not found");
-
-            _context.Interviews.Remove(thisInterview);
-
-            await _context.SaveChangesAsync();
+            _context.Interviews.Remove(Interview);
         }
 
         public async Task<bool> SaveAll()

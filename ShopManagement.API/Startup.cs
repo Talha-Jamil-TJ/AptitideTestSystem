@@ -35,12 +35,15 @@ namespace ShopManagement
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddControllers();
 
             services.AddCors();
 
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IVacancyRepository, VacancyRepository>();
+            services.AddScoped<IInterviewRepository, InterviewRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -87,7 +90,7 @@ namespace ShopManagement
                     }
                 });
             });
-            
+
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseRouting();

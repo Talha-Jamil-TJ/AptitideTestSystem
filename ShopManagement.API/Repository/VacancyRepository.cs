@@ -30,7 +30,7 @@ namespace ShopManagement.Repository
             await _context.Vacancies.AddAsync(vacancy);
         }
 
-        public async Task Delete(Vacancy vacancy)
+        public void Delete(Vacancy vacancy)
         {
             _context.Vacancies.Remove(vacancy);
         }

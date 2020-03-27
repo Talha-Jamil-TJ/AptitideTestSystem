@@ -76,7 +76,7 @@ namespace ShopManagement.Controllers
 
             if (thisInterview == null) return BadRequest("Interview not found");
 
-            await _repo.Delete(thisInterview);
+            _repo.Delete(thisInterview);
 
             if (await _repo.SaveAll())
                 return NoContent();

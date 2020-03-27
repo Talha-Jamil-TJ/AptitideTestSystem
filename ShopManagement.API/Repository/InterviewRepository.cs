@@ -33,7 +33,7 @@ namespace ShopManagement.Repository
             await _context.Interviews.AddAsync(Interview);
         }
 
-        public async Task Delete(Interview Interview)
+        public void Delete(Interview Interview)
         {
             _context.Interviews.Remove(Interview);
         }

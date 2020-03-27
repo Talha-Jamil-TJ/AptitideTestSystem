@@ -12,7 +12,7 @@ namespace ShopManagement.IRepository
         
         Task Create(Vacancy vacancy);
 
-        Task Delete(Vacancy vacancy);
+        void Delete(Vacancy vacancy);
 
         Task<bool> SaveAll();
     }

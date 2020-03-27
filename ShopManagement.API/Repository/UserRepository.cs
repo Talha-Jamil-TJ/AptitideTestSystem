@@ -6,33 +6,33 @@ using ShopManagement.models;
 
 namespace ShopManagement.Repository
 {
-    public class RoleRepository : IRoleRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
 
-        public RoleRepository(DataContext context)
+        public UserRepository(DataContext context)
         {
             _context = context;
         }
 
-        public async Task<IList<Role>> Get()
+        public async Task<IList<User>> Get()
         {
-            return await _context.Roles.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        public async Task<Role> Get(int roleId)
+        public async Task<User> Get(int userId)
         {
-            return await _context.Roles.FirstOrDefaultAsync(x => x.Id == roleId);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
         }
 
-        public async Task Create(Role role)
+        public async Task Create(User user)
         {
-            await _context.Roles.AddAsync(role);
+            await _context.Users.AddAsync(user);
         }
 
-        public void Delete(Role role)
+        public void Delete(User user)
         {
-            _context.Roles.Remove(role);
+            _context.Users.Remove(user);
         }
 
         public async Task<bool> SaveAll()

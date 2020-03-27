@@ -76,7 +76,7 @@ namespace ShopManagement.Controllers
 
             if (thisVacancy == null) return BadRequest("Vacancy not found");
 
-            await _repo.Delete(thisVacancy);
+            _repo.Delete(thisVacancy);
 
             if (await _repo.SaveAll())
                 return NoContent();

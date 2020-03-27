@@ -4,15 +4,15 @@ using ShopManagement.models;
 
 namespace ShopManagement.IRepository
 {
-    public interface IRoleRepository
+    public interface IUserRepository
     {
-        Task<IList<Role>> Get();
+        Task<IList<User>> Get();
         
-        Task<Role> Get(int roleId);
+        Task<User> Get(int userId);
         
-        Task Create(Role role);
+        Task Create(User user);
 
-        void Delete(Role role);
+        void Delete(User user);
 
         Task<bool> SaveAll();
     }

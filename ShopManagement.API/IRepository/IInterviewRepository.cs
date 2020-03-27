@@ -13,7 +13,7 @@ namespace ShopManagement.IRepository
 
         Task Create(Interview interview);
 
-        Task Delete(Interview interview);
+        void Delete(Interview interview);
 
         Task<bool> SaveAll();
     }

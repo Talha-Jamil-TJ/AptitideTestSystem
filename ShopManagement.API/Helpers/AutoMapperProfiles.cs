@@ -10,8 +10,10 @@ namespace ShopManagement.Helpers
         {
             // To DTO
             CreateMap<User, UserForLoginDTO>();
-            
+
             CreateMap<User, UserForRegisterDTO>();
+
+            CreateMap<Role, RoleDTO>();
 
             CreateMap<Role, RoleDTO>();
 
@@ -21,7 +23,9 @@ namespace ShopManagement.Helpers
             CreateMap<UserForRegisterDTO, User>();
 
             CreateMap<RoleDTO, Role>();
-            
+
+            CreateMap<RoleDTO, Role>();
+
             /* ForMember(x => x.Id,
                 opt => opt.Ignore()) */
         }

@@ -10,12 +10,12 @@ namespace ShopManagement.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RoleController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IRoleRepository _repo;
+        private readonly IUserRepository _repo;
         private readonly IMapper _mapper;
 
-        public RoleController(IRoleRepository repo, IMapper mapper)
+        public UserController(IUserRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -24,44 +24,44 @@ namespace ShopManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var roles = await _repo.Get();
+            var users = await _repo.Get();
 
-            var rolesDto = _mapper.Map<IList<RoleDTO>>(roles);
+            var usersDto = _mapper.Map<IList<UserDTO>>(users);
 
-            return Ok(rolesDto);
+            return Ok(usersDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var role = await _repo.Get(id);
+            var user = await _repo.Get(id);
 
-            var roleDto = _mapper.Map<RoleDTO>(role);
+            var userDto = _mapper.Map<UserDTO>(user);
 
-            return Ok(roleDto);
+            return Ok(userDto);
         }
 
-        [HttpPost(Name = "CreateRole")]
-        public async Task<IActionResult> Create(RoleDTO roleDto)
+        [HttpPost(Name = "CreateUser")]
+        public async Task<IActionResult> Create(UserDTO userDto)
         {
-            var role = _mapper.Map<Role>(roleDto);
+            var user = _mapper.Map<User>(userDto);
 
-            await _repo.Create(role);
+            await _repo.Create(user);
 
             if (await _repo.SaveAll())
-                return CreatedAtRoute("CreateRole", new {id = role.Id}, role);
+                return CreatedAtRoute("CreateUser", new {id = user.Id}, user);
 
             return BadRequest("creation unsuccessful");
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(RoleDTO roleDto)
+        public async Task<IActionResult> Update(UserDTO userDto)
         {
-            var role = _mapper.Map<Role>(roleDto);
+            var user = _mapper.Map<User>(userDto);
 
-            var thisRole = await _repo.Get(role.Id);
+            var thisUser = await _repo.Get(user.Id);
 
-            if (thisRole == null) return BadRequest("Role not found");
+            if (thisUser == null) return BadRequest("User not found");
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -72,11 +72,11 @@ namespace ShopManagement.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var thisRole = await _repo.Get(id);
+            var thisUser = await _repo.Get(id);
 
-            if (thisRole == null) return BadRequest("Role not found");
+            if (thisUser == null) return BadRequest("User not found");
 
-            _repo.Delete(thisRole);
+            _repo.Delete(thisUser);
 
             if (await _repo.SaveAll())
                 return NoContent();

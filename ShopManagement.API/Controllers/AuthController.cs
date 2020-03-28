@@ -13,20 +13,27 @@ namespace ShopManagement.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IRoleRepository _roleRepo;
 
-        public AuthController(IAuthRepository repo, IMapper mapper)
+        public AuthController(IAuthRepository repo, IRoleRepository roleRepo, IMapper mapper)
         {
             _repo = repo;
+            _roleRepo = roleRepo;
             _mapper = mapper;
         }
 
         [HttpPost("register", Name = "RegisteredUser")]
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDto)
         {
+
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("User Name already exists");
+
+            var thisRole = await _roleRepo.Get(userForRegisterDto.RoleId);
+
+            if (thisRole == null) return BadRequest("Role not found");
 
             var userToCreate = new User
             {
@@ -38,7 +45,7 @@ namespace ShopManagement.Controllers
 
             var userToReturn = _mapper.Map<UserDTO>(createdUser);
 
-            return CreatedAtRoute("RegisteredUser", new {id = userToReturn.Id}, userToReturn);
+            return CreatedAtRoute("RegisteredUser", new { id = userToReturn.Id }, userToReturn);
         }
 
         [HttpPost("login")]

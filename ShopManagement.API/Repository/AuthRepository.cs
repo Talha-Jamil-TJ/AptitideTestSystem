@@ -29,10 +29,10 @@ namespace ShopManagement.Repository
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            await _context.Users.AddAsync(user);
+            var addedUser = await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
-            return user;
+            return addedUser.Entity;
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

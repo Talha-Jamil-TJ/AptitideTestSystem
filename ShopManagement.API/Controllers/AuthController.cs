@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShopManagement.DTOs;
 using ShopManagement.IRepository;
@@ -11,29 +12,33 @@ namespace ShopManagement.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repo)
+        public AuthController(IAuthRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
-        [HttpPost("register")]
+        [HttpPost("register", Name = "RegisteredUser")]
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDto)
         {
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("User Name already exists");
-            
+
             var userToCreate = new User
             {
-                UserName = userForRegisterDto.UserName
+                UserName = userForRegisterDto.UserName,
+                RoleId = userForRegisterDto.RoleId
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            return StatusCode(201);
-            
+            var userToReturn = _mapper.Map<UserDTO>(createdUser);
+
+            return CreatedAtRoute("RegisteredUser", new {id = userToReturn.Id}, userToReturn);
         }
 
         [HttpPost("login")]

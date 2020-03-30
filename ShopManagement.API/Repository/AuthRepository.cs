@@ -29,10 +29,11 @@ namespace ShopManagement.Repository
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            var addedUser = await _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(user);
+
             await _context.SaveChangesAsync();
 
-            return addedUser.Entity;
+            return user;
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -86,7 +87,7 @@ namespace ShopManagement.Repository
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
-            
+
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor

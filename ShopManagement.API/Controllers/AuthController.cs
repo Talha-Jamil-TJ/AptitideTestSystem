@@ -25,11 +25,10 @@ namespace ShopManagement.Controllers
         [HttpPost("register", Name = "RegisteredUser")]
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDto)
         {
-
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
-                return BadRequest("User Name already exists");
+                return BadRequest("Username already exists");
 
             var thisRole = await _roleRepo.Get(userForRegisterDto.RoleId);
 
@@ -43,9 +42,14 @@ namespace ShopManagement.Controllers
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            var userToReturn = _mapper.Map<UserDTO>(createdUser);
+            // var userToReturn = _mapper.Map<UserDTO>(createdUser);
 
-            return CreatedAtRoute("RegisteredUser", new { id = userToReturn.Id }, userToReturn);
+            var token = _repo.GetToken(createdUser);
+
+            return CreatedAtRoute("RegisteredUser", new {id = createdUser.Id}, new
+            {
+                token,
+            });
         }
 
         [HttpPost("login")]
@@ -54,13 +58,13 @@ namespace ShopManagement.Controllers
             var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
-                return Unauthorized();
+                return Unauthorized("Login Failed");
 
             var token = _repo.GetToken(userFromRepo);
 
             return Ok(new
             {
-                token = token
+                token
             });
         }
     }

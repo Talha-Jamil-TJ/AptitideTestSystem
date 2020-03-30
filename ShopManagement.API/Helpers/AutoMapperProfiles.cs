@@ -13,18 +13,32 @@ namespace ShopManagement.Helpers
 
             CreateMap<User, UserForRegisterDTO>();
 
-            CreateMap<Role, RoleDTO>();
+            CreateMap<User, UserDTO>();
+
+            CreateMap<User, UserForRegisterDTO>();
 
             CreateMap<Role, RoleDTO>();
+
+            CreateMap<Vacancy, VacancyDTO>();
+
+            CreateMap<VacancyApplicant, VacancyApplicantDTO>();
+
+            CreateMap<Interview, InterviewDTO>();
 
             // From DTO
             CreateMap<UserForLoginDTO, User>();
 
             CreateMap<UserForRegisterDTO, User>();
 
-            CreateMap<RoleDTO, Role>();
+            CreateMap<UserDTO, User>();
 
             CreateMap<RoleDTO, Role>();
+
+            CreateMap<VacancyDTO, Vacancy>();
+
+            CreateMap<VacancyApplicantDTO, VacancyApplicant>();
+
+            CreateMap<InterviewDTO, Interview>();
 
             /* ForMember(x => x.Id,
                 opt => opt.Ignore()) */

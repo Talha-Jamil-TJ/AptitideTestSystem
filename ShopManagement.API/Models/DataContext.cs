@@ -17,6 +17,8 @@ namespace ShopManagement.models
 
         public DbSet<Interview> Interviews { get; set; }
 
+        public DbSet<VacancyApplicant> VacancyApplicants { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()
@@ -26,7 +28,7 @@ namespace ShopManagement.models
             foreach (var fk in cascadeFKs)
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder); 
         }
     }
 }

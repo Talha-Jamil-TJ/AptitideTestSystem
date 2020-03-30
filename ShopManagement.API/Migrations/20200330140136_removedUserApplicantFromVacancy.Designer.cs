@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopManagement.models;
 
 namespace ShopManagement.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200330140136_removedUserApplicantFromVacancy")]
+    partial class removedUserApplicantFromVacancy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,28 +113,6 @@ namespace ShopManagement.Migrations
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("ShopManagement.models.VacancyApplicant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ApplicantUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VacancyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicantUserId");
-
-                    b.HasIndex("VacancyId");
-
-                    b.ToTable("VacancyApplicants");
-                });
-
             modelBuilder.Entity("ShopManagement.models.Interview", b =>
                 {
                     b.HasOne("ShopManagement.models.User", "OwnerUser")
@@ -153,21 +133,6 @@ namespace ShopManagement.Migrations
                     b.HasOne("ShopManagement.models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ShopManagement.models.VacancyApplicant", b =>
-                {
-                    b.HasOne("ShopManagement.models.User", "ApplicantUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicantUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ShopManagement.models.Vacancy", "Vacancy")
-                        .WithMany()
-                        .HasForeignKey("VacancyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

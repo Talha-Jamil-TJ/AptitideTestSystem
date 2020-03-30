@@ -1,0 +1,63 @@
+:host {
+   display: flex;
+   justify-content: center;
+   margin: 20vh 0;
+}
+
+mat-form-field {
+   width: 40vw;
+  margin: 5px 0;
+   /*display: flex;*/
+   /*justify-content: center;*/
+}
+
+mat-form-field > input {
+   width: 100%;
+}
+
+mat-card-title,
+mat-card-content {
+   /*display: flex;*/
+   /*justify-content: center;*/
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 60vw;
+}
+
+mat-card-content > form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.mat-card .mat-divider-horizontal {
+   position: relative;
+   width: 80%;
+   margin: 20px auto;
+}
+
+.registerPart {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.registerPart > button {
+   margin-left: 20px;
+}
+
+button {
+   margin-right: 8px;
+}
+/*.button {*/
+/*  display: flex;*/
+/*  justify-content: flex-end;*/
+/*}*/
+
+/*.button > button {*/
+/*  width: 100%;*/
+/*}*/

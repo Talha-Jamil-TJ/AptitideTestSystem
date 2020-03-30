@@ -1,20 +1,50 @@
 <mat-card>
    <mat-card-title>Register</mat-card-title>
    <mat-card-content>
-      <form #f="ngForm">
-         <mat-form-field>
+      <form #f="ngForm" (ngSubmit)="f.valid ? onSubmit() : ''">
+         <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
-            <input id="userName" name="userName" type="text" matInput  />
+            <input id="userName" name="userName" type="text" matInput [(ngModel)]="registerForm.userName" required />
+            <mat-error>Username is <b>required</b></mat-error>
          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Favorite food</mat-label>
-          <mat-select>
-            <mat-option  [value]="'as'">
-              {{food.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+         <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+               id="password"
+               name="password"
+               type="password"
+               matInput
+               #password="ngModel"
+               [(ngModel)]="registerForm.password"
+               required
+               minlength="4"
+               maxlength="15"
+            />`
+            <mat-hint>password <b>must</b> be between 4 and 15 characters long</mat-hint>
+            <mat-error *ngIf="!password.errors?.required">Password <b>must</b> be between 4 and 15</mat-error>
+            <mat-error *ngIf="password.errors?.required">Password is <b>required</b></mat-error>
+         </mat-form-field>
+
+         <mat-form-field appearance="outline">
+            <mat-label>Select role</mat-label>
+            <mat-select name="roleId" [(ngModel)]="registerForm.roleId" required>
+               <mat-option [value]="role.id" *ngFor="let role of Role$ | async"> {{ role.name }}</mat-option>
+            </mat-select>
+            <mat-error>Role is <b>required</b></mat-error>
+         </mat-form-field>
+
+         <div class="d-flex justify-content-end">
+            <button mat-raised-button type="submit" color="primary">Register</button>
+            <button mat-raised-button type="button" (click)="checkForm(f)">Check form</button>
+            <button mat-raised-button type="button" (click)="f.reset()">Reset</button>
+         </div>
       </form>
+
+      <mat-divider></mat-divider>
+      <div class="registerPart">
+         Already registered?
+         <button mat-raised-button color="accent" type="button" routerLink="/auth/login">Login</button>
+      </div>
    </mat-card-content>
 </mat-card>

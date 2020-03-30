@@ -46,6 +46,7 @@ import {MatSelectModule} from '@angular/material/typings/select';
       MatIconModule,
       MatListModule,
       MatProgressSpinnerModule,
+      MatSelectModule,
    ],
 })
 export class AngularMaterialModule {}

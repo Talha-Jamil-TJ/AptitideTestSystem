@@ -1,17 +1,16 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {MainComponent} from './main.component';
 
 const routes: Routes = [
    {
       path: '',
       component: MainComponent,
       children: [
-         { path: '', redirectTo: 'productsView', pathMatch: 'full' },
+         { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
          {
-            path: 'productsView',
-            loadChildren: () =>
-               import('./main_views/productsView/products-view.module').then((x) => x.ProductsViewModule),
+            path: 'dashboard',
+            loadChildren: () => import('./main_views/dashboard/dashboard.module').then((x) => x.DashboardModule),
          },
       ],
    },

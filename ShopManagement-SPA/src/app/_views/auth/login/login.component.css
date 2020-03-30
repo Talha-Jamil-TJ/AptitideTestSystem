@@ -1,33 +1,59 @@
 :host {
-  display: flex;
-  justify-content: center;
-  margin: 100px 0px;
+   display: flex;
+   justify-content: center;
+   margin: 20vh 0;
 }
 
-.mat-form-field {
-  width: 100%;
-  min-width: 300px;
+mat-form-field {
+   width: 40vw;
 }
 
 mat-card-title,
 mat-card-content {
-  display: flex;
-  justify-content: center;
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   flex-direction: column;
+   text-align: center;
+   width: 60vw;
 }
 
-.error {
-  padding: 16px;
-  width: 300px;
-  border-radius: 8px;
-  color: white;
-  background-color: red;
+mat-card-content > form {
+   display: flex;
+   flex-direction: column;
+   margin: 0 auto;
+}
+
+button {
+   margin-right: 8px;
 }
 
 .button {
-  display: flex;
-  justify-content: flex-end;
+   display: flex;
+   justify-content: flex-end;
 }
 
 .button > button {
-  width: 100%;
+   /*width: 100%;*/
 }
+
+.mat-card .mat-divider-horizontal {
+  position: relative;
+   width: 80%;
+   margin: 20px auto;
+}
+
+.registerPart {
+   display: flex;
+   justify-content: center;
+  align-items: center;
+}
+
+.registerPart > button {
+  margin-left: 20px;
+}
+
+/*.divider > mat-divider {*/
+/*  margin: 0 auto;*/
+/*   width: 60%;*/
+/*}*/

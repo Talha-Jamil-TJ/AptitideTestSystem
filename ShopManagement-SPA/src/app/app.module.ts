@@ -15,6 +15,9 @@ import {AngularMaterialModule} from './_shared/AngularMaterial.module';
 import {LoadingSpinnerInterceptor} from './_shared/loadingSpinner/loadingSpinner.interceptor';
 import {RouterState} from './_state/router/Router.state';
 import {environment} from '../environments/environment';
+import {ErrorInterceptor} from './_interceptors/Error.interceptor';
+import {jwtInterceptor} from './_interceptors/JWT.interceptor';
+import {DateFnsModule} from 'ngx-date-fns';
 
 @NgModule({
    declarations: [AppComponent, LoadingSpinnerComponent],
@@ -28,6 +31,7 @@ import {environment} from '../environments/environment';
       NgxsModule.forRoot([RouterState], { developmentMode: !environment.production }),
       NgxsReduxDevtoolsPluginModule.forRoot(),
       NgxsLoggerPluginModule.forRoot(),
+      DateFnsModule.forRoot(),
    ],
    providers: [
       {
@@ -35,6 +39,12 @@ import {environment} from '../environments/environment';
          useClass: LoadingSpinnerInterceptor,
          multi: true,
       },
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: ErrorInterceptor,
+         multi: true,
+      },
+      jwtInterceptor,
    ],
    bootstrap: [AppComponent],
 })

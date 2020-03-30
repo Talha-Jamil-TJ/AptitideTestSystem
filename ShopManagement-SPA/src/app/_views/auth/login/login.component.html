@@ -2,48 +2,50 @@
    <mat-card>
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
-         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-            <p>
-               <mat-form-field appearance="outline">
-                  <mat-label>Username</mat-label>
-                  <input
-                     #userName="ngModel"
-                     [(ngModel)]="loginModel.userName"
-                     id="userName"
-                     matInput
-                     name="userName"
-                     placeholder="Enter your username"
-                     required
-                     type="text"
-                  />
-                  <mat-error>Username is <b>required</b></mat-error>
-               </mat-form-field>
-            </p>
+         <form #loginForm="ngForm" (ngSubmit)="loginForm.valid ? onSubmit() : ''">
+            <mat-form-field appearance="outline">
+               <mat-label>Username</mat-label>
+               <input
+                  #userName="ngModel"
+                  [(ngModel)]="loginModel.userName"
+                  id="userName"
+                  matInput
+                  name="userName"
+                  placeholder="Enter your username"
+                  required
+                  type="text"
+               />
+               <mat-error>Username is <b>required</b></mat-error>
+            </mat-form-field>
 
-            <p>
-               <mat-form-field appearance="outline">
-                  <mat-label>Password</mat-label>
-                  <input
-                     #password="ngModel"
-                     [(ngModel)]="loginModel.password"
-                     autocomplete="on"
-                     id="password"
-                     matInput
-                     name="password"
-                     placeholder="Enter your password"
-                     required
-                     type="password"
-                  />
-                  <mat-error>Password is <b>required</b></mat-error>
-               </mat-form-field>
-            </p>
-
-            <p *ngIf="isError" class="error">User name or password is <b>invalid</b>.</p>
+            <mat-form-field appearance="outline">
+               <mat-label>Password</mat-label>
+               <input
+                  #password="ngModel"
+                  [(ngModel)]="loginModel.password"
+                  autocomplete="on"
+                  id="password"
+                  matInput
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                  type="password"
+               />
+               <mat-hint>password <b>must</b> be between 4 and 15 characters long</mat-hint>
+               <mat-error>Password is <b>required</b></mat-error>
+            </mat-form-field>
 
             <div class="button">
-               <button mat-raised-button type="submit">Login</button>
+               <button mat-raised-button type="button" (click)="loginForm.resetForm()">Reset</button>
+               <button mat-raised-button type="submit" color="primary">Login</button>
             </div>
          </form>
+
+         <mat-divider></mat-divider>
+         <div class="registerPart">
+            Don't have an account?
+            <button mat-raised-button color="accent" type="button" routerLink="/auth/register">Register</button>
+         </div>
       </mat-card-content>
    </mat-card>
 </div>

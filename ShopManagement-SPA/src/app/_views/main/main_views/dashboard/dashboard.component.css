@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5vh auto;
+  width: 100%;
+}
+
+mat-card {
+  flex: 1;
+  margin-right: 2em;
+}
+
+.body {
+  display: flex;
+}
+
+.body > mat-card > mat-card-content {
+  display: flex;
+  align-items: center;
+}
+
+.body > mat-card > mat-card-content > span {
+  font-weight: bold;
+  margin-left: auto;
+}

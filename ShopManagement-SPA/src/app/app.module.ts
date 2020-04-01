@@ -48,4 +48,5 @@ import {DateFnsModule} from 'ngx-date-fns';
    ],
    bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

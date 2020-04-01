@@ -1,1 +1,87 @@
-<p>dashboard works!</p>
+<h3 class="mat-display-1"><i class="fa fa-columns"></i> Dashboard</h3>
+
+<h4 class="mat-headline">Interviews</h4>
+<div class="body">
+  <mat-card>
+    <mat-card-content>
+      <h6>Today</h6>
+      <span>15</span>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <h6>This week</h6>
+      <span>25</span>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <h6>This month</h6>
+      <span>50</span>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<h4 class="mat-headline">Applicants</h4>
+<div class="body">
+   <mat-card>
+      <mat-card-content>
+         <h6>Today</h6>
+         <span>15</span>
+      </mat-card-content>
+   </mat-card>
+
+   <mat-card>
+      <mat-card-content>
+         <h6>This week</h6>
+         <span>25</span>
+      </mat-card-content>
+   </mat-card>
+
+   <mat-card>
+      <mat-card-content>
+         <h6>This month</h6>
+         <span>50</span>
+      </mat-card-content>
+   </mat-card>
+</div>
+
+<h4 class="mat-headline mt-4">Vacancies</h4>
+<div class="body">
+   <mat-card>
+      <mat-card-content>
+         <h6>Today</h6>
+         <span>15</span>
+      </mat-card-content>
+   </mat-card>
+
+   <mat-card>
+      <mat-card-content>
+         <h6>This week</h6>
+         <span>25</span>
+      </mat-card-content>
+   </mat-card>
+
+   <mat-card>
+      <mat-card-content>
+         <h6>This month</h6>
+         <span>50</span>
+      </mat-card-content>
+   </mat-card>
+</div>
+
+<div class="body mt-4">
+   <mat-card>
+      <mat-card-content>
+         <canvas
+            baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [chartType]="lineChartType"
+            [options]="options"
+         ></canvas>
+      </mat-card-content>
+   </mat-card>
+</div>

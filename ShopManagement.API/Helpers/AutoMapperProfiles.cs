@@ -21,6 +21,8 @@ namespace ShopManagement.Helpers
 
             CreateMap<Vacancy, VacancyDTO>();
 
+            CreateMap<Applicant, ApplicantDTO>();
+
             CreateMap<VacancyApplicant, VacancyApplicantDTO>();
 
             CreateMap<Interview, InterviewDTO>();
@@ -35,6 +37,8 @@ namespace ShopManagement.Helpers
             CreateMap<RoleDTO, Role>();
 
             CreateMap<VacancyDTO, Vacancy>();
+
+            CreateMap<ApplicantDTO, Applicant>();
 
             CreateMap<VacancyApplicantDTO, VacancyApplicant>();
 

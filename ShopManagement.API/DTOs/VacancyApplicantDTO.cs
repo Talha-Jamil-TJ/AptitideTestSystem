@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int ApplicantUserId { get; set; }
+        public int ApplicantId { get; set; }
 
         public int VacancyId { get; set; }
     }

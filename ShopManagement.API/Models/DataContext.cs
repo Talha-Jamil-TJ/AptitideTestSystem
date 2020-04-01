@@ -17,6 +17,8 @@ namespace ShopManagement.models
 
         public DbSet<Interview> Interviews { get; set; }
 
+        public DbSet<Applicant> Applicants { get; set; }
+
         public DbSet<VacancyApplicant> VacancyApplicants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
